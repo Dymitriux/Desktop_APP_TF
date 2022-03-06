@@ -5,8 +5,8 @@ import io.cucumber.testng.CucumberOptions;
 
 @CucumberOptions(
         plugin = "pretty",
-        features = {"features"},
-        glue = {"steps"}
+        features = {"src/test/resources/features"},
+        glue = {"steps", "configuration.hooks"}
 )
 public class CucumberRunner extends AbstractTestNGCucumberTests {
 
