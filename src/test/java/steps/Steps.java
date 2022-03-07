@@ -1,5 +1,6 @@
 package steps;
 
+import elements.Elements;
 import io.appium.java_client.windows.WindowsDriver;
 import io.appium.java_client.windows.WindowsElement;
 import io.cucumber.java.en.And;
@@ -15,10 +16,12 @@ public class Steps {
 
     protected static Logger logger;
     private static WindowsDriver<WindowsElement> windowsDriver;
+    Elements e;
 
     public Steps() {
         logger = LoggingUtils.getLogger();
         windowsDriver = DriverUtils.getWindowsDriver();
+        e = new Elements(windowsDriver);
     }
 
     @Given("user open Notepad application")
@@ -30,7 +33,7 @@ public class Steps {
 
     @And("user open Help menu item")
     public void userOpenHelpMenuItem() {
-        windowsDriver.findElementByName("Help").click();
+        e.help.click();
     }
 
     @And("and press About Notepad")
@@ -61,7 +64,7 @@ public class Steps {
 
     @And("press TimeDate in dropdown menu")
     public void pressTimeDateInDropdownMenu() {
-        windowsDriver.findElementByAccessibilityId("26").click();
+        e.timedate.click();
     }
 
     @And("Confirm that the test is displayed in Notepad")
