@@ -7,6 +7,7 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import java.io.IOException;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
 
 public class DriverUtils {
 
@@ -28,6 +29,7 @@ public class DriverUtils {
 
             windowsDriver = new WindowsDriver<>(new URL("http://127.0.0.1:4723"), capabilities);
             windowsDriver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
+            windowsDriver.setLogLevel(Level.ALL);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -43,6 +45,8 @@ public class DriverUtils {
     public static void runWinAppDriver() throws IOException {
         String command = "C:\\Program Files (x86)\\Windows Application Driver\\WinAppDriver.exe";
         ProcessBuilder builder = new ProcessBuilder(command).inheritIO();
+        builder.redirectError(ProcessBuilder.Redirect.DISCARD); /* Discard TBD, need to check WinAppDriver errors */
+        builder.redirectOutput(ProcessBuilder.Redirect.DISCARD);
         p = builder.start();
     }
 
