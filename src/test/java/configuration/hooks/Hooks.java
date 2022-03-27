@@ -1,21 +1,23 @@
 package configuration.hooks;
 
 import io.cucumber.java.After;
+import io.cucumber.java.AfterAll;
 import io.cucumber.java.Before;
 import io.cucumber.java.BeforeAll;
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.apache.logging.log4j.Logger;
 import utils.LoggingUtils;
-import utils.WebDriverUtils;
+import utils.DriverUtils;
+
+import java.io.IOException;
 
 public class Hooks {
 
     protected static Logger logger = LoggingUtils.getLogger();
 
     @BeforeAll
-    public static void setUpBeforeAll() {
+    public static void setUpBeforeAll() throws IOException {
         logger.info("Before all set up method.");
-        WebDriverManager.chromedriver().setup();
+        DriverUtils.runWinAppDriver();
     }
 
     @Before
@@ -25,7 +27,13 @@ public class Hooks {
 
     @After
     public void tearDown() {
-        WebDriverUtils.quitDriver();
         logger.info("Tear down method.");
+        DriverUtils.quitWinDriver();
+    }
+
+    @AfterAll
+    public static void tearDownAfterAll() {
+        logger.info("After all tear down method.");
+        DriverUtils.quitWinAppDriver();
     }
 }
